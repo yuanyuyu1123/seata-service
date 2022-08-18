@@ -1,0 +1,11 @@
+package com.rs.service;
+
+
+/**
+* @author 23216
+* @description 针对表【seata_state_machine_def】的数据库操作Service
+* @createDate 2022-08-18 18:31:20
+*/
+public interface ISeataStateMachineDefService {
+
+}

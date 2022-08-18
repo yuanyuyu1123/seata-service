@@ -1,0 +1,54 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        username: nacos
+        password: nacos
+        cluster-name: default
+      config:
+        server-addr: localhost:8848
+        password: nacos
+        username: nacos
+        cluster-name: default
+    gateway:
+      routes:
+        - id: account_router
+          uri: lb://API-ACCOUNT
+          predicates:
+            - Path=/account/**
+          filters:
+            - StripPrefix=1
+        - id: orders_router
+          uri: lb://API-ORDERS
+          predicates:
+            - Path=/orders/**
+          filters:
+            - StripPrefix=1
+        - id: storage_router
+          uri: lb://API-STORAGE
+          predicates:
+            - Path=/storage/**
+          filters:
+            - StripPrefix=1
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+#  redis:
+#    host: 192.168.2.109
+#    port: 6379
+#
+#com:
+#  rs:
+#    redis:
+#      address: redis://192.168.2.109:6379
+logging:
+  level:
+    com.rs: debug
